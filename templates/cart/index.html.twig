@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier{% endblock %}
+
+{% block body %}
+<h1 class="mb-4">🛒 Mon Panier</h1>
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+{% for message in app.flashes('warning') %}
+    <div class="alert alert-warning">{{ message }}</div>
+{% endfor %}
+
+{% if items is empty %}
+    <div class="alert alert-info">
+        Votre panier est vide.
+        <a href="{{ path('product_index') }}">Voir les produits</a>
+    </div>
+{% else %}
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Produit</th>
+                <th>Prix unitaire</th>
+                <th>Quantité</th>
+                <th>Sous-total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.price }} €</td>
+                <td>
+                    <a href="{{ path('cart_decrease', {id: item.product.id}) }}" class="btn btn-sm btn-outline-secondary">-</a>
+                    {{ item.quantity }}
+                    <a href="{{ path('cart_add', {id: item.product.id}) }}" class="btn btn-sm btn-outline-secondary">+</a>
+                </td>
+                <td>{{ (item.product.price * item.quantity)|number_format(2) }} €</td>
+                <td>
+                    <a href="{{ path('cart_remove', {id: item.product.id}) }}" class="btn btn-sm btn-danger">🗑 Supprimer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-end fw-bold">Total :</td>
+                <td colspan="2" class="fw-bold text-success">{{ total|number_format(2) }} €</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('cart_clear') }}" class="btn btn-outline-danger">🗑 Vider le panier</a>
+        <a href="{{ path('checkout') }}" class="btn btn-success btn-lg">✅ Commander</a>
+    </div>
+{% endif %}
+{% endblock %}

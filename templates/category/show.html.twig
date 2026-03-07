@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.nom }}{% endblock %}
+
+{% block body %}
+
+<!-- Breadcrumb -->
+<nav class="text-sm text-gray-400 mb-8">
+    <a href="{{ path('category_index') }}" class="hover:text-indigo-600">Catégories</a>
+    <span class="mx-2">›</span>
+    <span class="text-gray-600">{{ category.nom }}</span>
+</nav>
+
+<div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">{{ category.nom }}</h1>
+    <p class="text-gray-500">{{ category.products|length }} produit(s) disponible(s)</p>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for product in category.products %}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition overflow-hidden">
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 h-48 flex items-center justify-center">
+            <span class="text-6xl">📦</span>
+        </div>
+        <div class="p-5">
+            <h2 class="text-lg font-bold text-gray-900 mb-2">{{ product.name }}</h2>
+            <p class="text-gray-500 text-sm mb-4">{{ product.description|slice(0, 80) }}...</p>
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-2xl font-bold text-indigo-600">{{ product.price }} €</span>
+                <span class="text-xs text-gray-400">Stock : {{ product.stock }}</span>
+            </div>
+            <a href="{{ path('product_show', {id: product.id}) }}"
+               class="block text-center bg-indigo-600 text-white py-2 rounded-xl text-sm font-medium hover:bg-indigo-700 transition">
+                Voir le produit
+            </a>
+        </div>
+    </div>
+    {% else %}
+        <p class="text-gray-400 col-span-3 text-center">Aucun produit dans cette catégorie.</p>
+    {% endfor %}
+</div>
+
+<div class="mt-8">
+    <a href="{{ path('category_index') }}" class="text-indigo-600 hover:underline">← Retour aux catégories</a>
+</div>
+{% endblock %}

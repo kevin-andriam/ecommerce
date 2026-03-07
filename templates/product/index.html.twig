@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Produits{% endblock %}
+
+{% block body %}
+
+<!-- Hero -->
+<div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">Nos Produits</h1>
+    <p class="text-gray-500 text-lg">Découvrez notre sélection de produits de qualité</p>
+</div>
+
+<!-- Grille produits -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for product in products %}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition overflow-hidden group">
+
+        <!-- Image placeholder -->
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 h-48 flex items-center justify-center">
+            <span class="text-6xl">📦</span>
+        </div>
+
+        <div class="p-5">
+            <!-- Catégorie -->
+            <span class="text-xs font-semibold text-indigo-500 uppercase tracking-wide">
+                {{ product.category.nom }}
+            </span>
+
+            <!-- Nom -->
+            <h2 class="text-lg font-bold text-gray-900 mt-1 mb-2">{{ product.name }}</h2>
+
+            <!-- Description -->
+            <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                {{ product.description|slice(0, 80) }}...
+            </p>
+
+            <!-- Prix & Stock -->
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-2xl font-bold text-indigo-600">{{ product.price }} €</span>
+                <span class="text-xs text-gray-400">Stock : {{ product.stock }}</span>
+            </div>
+
+            <!-- Boutons -->
+            <div class="flex gap-2">
+                <a href="{{ path('product_show', {id: product.id}) }}"
+                   class="flex-1 text-center border border-indigo-600 text-indigo-600 py-2 rounded-xl text-sm font-medium hover:bg-indigo-50 transition">
+                    Voir
+                </a>
+                <a href="{{ path('cart_add', {id: product.id}) }}"
+                   class="flex-1 text-center bg-indigo-600 text-white py-2 rounded-xl text-sm font-medium hover:bg-indigo-700 transition">
+                    🛒 Ajouter
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <p class="text-gray-400 col-span-3 text-center">Aucun produit disponible.</p>
+    {% endfor %}
+</div>
+{% endblock %}
