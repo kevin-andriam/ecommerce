@@ -28,7 +28,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('🛒 Erica & Kevin\'s shop Admin');
+            ->setTitle('🛒 Kevin\'s shop Admin');
     }
 
     public function configureAssets(): Assets
