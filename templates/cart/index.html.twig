@@ -3,59 +3,97 @@
 {% block title %}Mon Panier{% endblock %}
 
 {% block body %}
-<h1 class="mb-4">🛒 Mon Panier</h1>
 
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">{{ message }}</div>
-{% endfor %}
-{% for message in app.flashes('warning') %}
-    <div class="alert alert-warning">{{ message }}</div>
-{% endfor %}
+<div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">🛒 Mon Panier</h1>
+    <p class="text-gray-500 dark:text-gray-400">Vérifiez votre sélection avant de commander</p>
+</div>
 
 {% if items is empty %}
-    <div class="alert alert-info">
-        Votre panier est vide.
-        <a href="{{ path('product_index') }}">Voir les produits</a>
+    <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-16 text-center max-w-md mx-auto">
+        <div class="text-7xl mb-4">🛒</div>
+        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Votre panier est vide</h2>
+        <p class="text-gray-400 dark:text-gray-500 mb-6">Ajoutez des produits pour commencer vos achats</p>
+        <a href="{{ path('product_index') }}"
+           class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">
+            Voir les produits
+        </a>
     </div>
-{% else %}
-    <table class="table table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>Produit</th>
-                <th>Prix unitaire</th>
-                <th>Quantité</th>
-                <th>Sous-total</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.product.price }} €</td>
-                <td>
-                    <a href="{{ path('cart_decrease', {id: item.product.id}) }}" class="btn btn-sm btn-outline-secondary">-</a>
-                    {{ item.quantity }}
-                    <a href="{{ path('cart_add', {id: item.product.id}) }}" class="btn btn-sm btn-outline-secondary">+</a>
-                </td>
-                <td>{{ (item.product.price * item.quantity)|number_format(2) }} €</td>
-                <td>
-                    <a href="{{ path('cart_remove', {id: item.product.id}) }}" class="btn btn-sm btn-danger">🗑 Supprimer</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3" class="text-end fw-bold">Total :</td>
-                <td colspan="2" class="fw-bold text-success">{{ total|number_format(2) }} €</td>
-            </tr>
-        </tfoot>
-    </table>
 
-    <div class="d-flex justify-content-between">
-        <a href="{{ path('cart_clear') }}" class="btn btn-outline-danger">🗑 Vider le panier</a>
-        <a href="{{ path('checkout') }}" class="btn btn-success btn-lg">✅ Commander</a>
+{% else %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <div class="lg:col-span-2 space-y-4">
+            {% for item in items %}
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5 flex items-center gap-5">
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-xl w-20 h-20 flex items-center justify-center flex-shrink-0">
+                    <span class="text-3xl">📦</span>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-gray-900 dark:text-gray-100">{{ item.product.name }}</h3>
+                    <p class="text-sm text-gray-400 dark:text-gray-500">{{ item.product.category.nom }}</p>
+                    <p class="text-indigo-600 dark:text-indigo-400 font-semibold mt-1">{{ item.product.price }} €</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="{{ path('cart_decrease', {id: item.product.id}) }}"
+                       class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-bold">
+                        −
+                    </a>
+                    <span class="w-8 text-center font-bold text-gray-900 dark:text-gray-100">{{ item.quantity }}</span>
+                    <a href="{{ path('cart_add', {id: item.product.id}) }}"
+                       class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-bold">
+                        +
+                    </a>
+                </div>
+                <div class="text-right min-w-20">
+                    <p class="font-bold text-gray-900 dark:text-gray-100">
+                        {{ (item.product.price * item.quantity)|number_format(2) }} €
+                    </p>
+                </div>
+                <a href="{{ path('cart_remove', {id: item.product.id}) }}"
+                   class="text-red-400 hover:text-red-600 transition text-xl ml-2">
+                    🗑
+                </a>
+            </div>
+            {% endfor %}
+
+            <div class="text-right">
+                <a href="{{ path('cart_clear') }}"
+                   class="text-sm text-red-400 hover:text-red-600 hover:underline transition">
+                    Vider le panier
+                </a>
+            </div>
+        </div>
+
+        <div class="lg:col-span-1">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 sticky top-24">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Résumé</h2>
+                <div class="space-y-3 mb-6">
+                    {% for item in items %}
+                    <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                        <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                        <span>{{ (item.product.price * item.quantity)|number_format(2) }} €</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="border-t border-gray-100 dark:border-gray-700 pt-4 mb-6">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-gray-900 dark:text-gray-100">Total</span>
+                        <span class="text-xl font-bold text-white bg-indigo-600 dark:bg-indigo-500 px-3 py-1 rounded-full">{{ product.price }} €</span>
+                    </div>
+                </div>
+                <a href="{{ path('checkout') }}"
+                   class="block text-center bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">
+                    ✅ Commander
+                </a>
+                <a href="{{ path('product_index') }}"
+                   class="block text-center text-gray-400 dark:text-gray-500 text-sm mt-3 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                    ← Continuer mes achats
+                </a>
+            </div>
+        </div>
+
     </div>
 {% endif %}
+
 {% endblock %}

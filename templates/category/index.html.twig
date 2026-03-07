@@ -5,21 +5,19 @@
 {% block body %}
 
 <div class="text-center mb-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-3">Catégories</h1>
-    <p class="text-gray-500 text-lg">Explorez nos catégories de produits</p>
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">Catégories</h1>
+    <p class="text-gray-500 dark:text-gray-400 text-lg">Explorez nos catégories de produits</p>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for category in categories %}
     <a href="{{ path('category_show', {id: category.id}) }}"
-       class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-indigo-200 transition p-8 text-center group">
+       class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-500 transition p-8 text-center group">
         <div class="text-5xl mb-4">🗂️</div>
-        <h2 class="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
             {{ category.nom }}
         </h2>
-        <p class="text-sm text-gray-400 mt-2">
-            {{ category.products|length }} produit(s)
-        </p>
+        <p class="text-sm text-gray-400 dark:text-gray-500 mt-2">{{ category.products|length }} produit(s)</p>
     </a>
     {% else %}
         <p class="text-gray-400 col-span-3 text-center">Aucune catégorie disponible.</p>
