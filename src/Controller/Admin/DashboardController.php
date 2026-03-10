@@ -28,22 +28,21 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('🛒 Kevin\'s shop Admin');
-    }
-
-    public function configureAssets(): Assets
-    {
-        return Assets::new()
-            ->addHtmlContentToHead('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">');
+            ->setTitle('🛒 Erica & Kevin\'s shop')
+            ->renderContentMaximized();
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', null);
+        yield MenuItem::section('Catalogue');
         yield MenuItem::linkTo('Produits', null, ProductCrudController::class)->setAction('index');
         yield MenuItem::linkTo('Catégories', null, CategoryCrudController::class)->setAction('index');
+        yield MenuItem::section('Ventes');
         yield MenuItem::linkTo('Commandes', null, OrderCrudController::class)->setAction('index');
         yield MenuItem::linkTo('Utilisateurs', null, UserCrudController::class)->setAction('index');
-        yield MenuItem::linkToRoute('Retour au site', null, 'product_index');
+        yield MenuItem::section('');
+        yield MenuItem::linkToRoute('← Retour au site', null, 'home');
+        yield MenuItem::linkToRoute('Déconnexion', null, 'app_logout');
     }
 }
