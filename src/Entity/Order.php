@@ -18,9 +18,6 @@ class Order
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $OrderItem = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $status = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
@@ -36,29 +33,17 @@ class Order
     /**
      * @var Collection<int, OrderItem>
      */
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'orderRef')]
-    private Collection $product;
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'orderRef', orphanRemoval: true)]
+    private Collection $orderItems;
 
     public function __construct()
     {
-        $this->product = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getOrderItem(): ?string
-    {
-        return $this->OrderItem;
-    }
-
-    public function setOrderItem(string $OrderItem): static
-    {
-        $this->OrderItem = $OrderItem;
-
-        return $this;
     }
 
     public function getStatus(): ?string
@@ -69,7 +54,6 @@ class Order
     public function setStatus(string $status): static
     {
         $this->status = $status;
-
         return $this;
     }
 
@@ -81,7 +65,6 @@ class Order
     public function setTotal(string $total): static
     {
         $this->total = $total;
-
         return $this;
     }
 
@@ -93,7 +76,6 @@ class Order
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -105,37 +87,33 @@ class Order
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
 
     /**
      * @return Collection<int, OrderItem>
      */
-    public function getProduct(): Collection
+    public function getOrderItems(): Collection
     {
-        return $this->product;
+        return $this->orderItems;
     }
 
-    public function addProduct(OrderItem $product): static
+    public function addOrderItem(OrderItem $orderItem): static
     {
-        if (!$this->product->contains($product)) {
-            $this->product->add($product);
-            $product->setOrderRef($this);
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems->add($orderItem);
+            $orderItem->setOrderRef($this);
         }
-
         return $this;
     }
 
-    public function removeProduct(OrderItem $product): static
+    public function removeOrderItem(OrderItem $orderItem): static
     {
-        if ($this->product->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getOrderRef() === $this) {
-                $product->setOrderRef(null);
+        if ($this->orderItems->removeElement($orderItem)) {
+            if ($orderItem->getOrderRef() === $this) {
+                $orderItem->setOrderRef(null);
             }
         }
-
         return $this;
     }
 }

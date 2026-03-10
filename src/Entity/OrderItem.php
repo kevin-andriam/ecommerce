@@ -20,7 +20,7 @@ class OrderItem
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
 
-    #[ORM\ManyToOne(inversedBy: 'product')]
+    #[ORM\ManyToOne(inversedBy: 'orderItems')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Order $orderRef = null;
 
