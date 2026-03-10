@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}UTRAKT{% endblock %}</title>
+    <title>{% block title %}ÜTRAKT{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -29,7 +29,7 @@
     <!-- Navbar -->
     <nav class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="/" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-tight">UTRAKT</a>
+            <a href="/" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-tight">ÜTRAKT</a>
             <div class="flex items-center gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
 
                 {% if not is_granted('ROLE_ADMIN') %}
