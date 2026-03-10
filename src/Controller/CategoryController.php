@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,10 +7,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CategoryController extends AbstractController
 {
-    // Liste toutes les catégories
     #[Route('/categories', name: 'category_index')]
     public function index(CategoryRepository $categoryRepository): Response
     {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
+
         $categories = $categoryRepository->findAll();
 
         return $this->render('category/index.html.twig', [
@@ -20,10 +21,13 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    // Produits d'une catégorie
     #[Route('/categories/{id}', name: 'category_show')]
     public function show(int $id, CategoryRepository $categoryRepository): Response
     {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
+
         $category = $categoryRepository->find($id);
 
         if (!$category) {

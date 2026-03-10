@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +16,10 @@ class ProductController extends AbstractController
         CategoryRepository $categoryRepository
     ): Response
     {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
+
         $search = $request->query->get('search', '');
         $categoryId = $request->query->get('category', '');
         $sort = $request->query->get('sort', '');
@@ -64,6 +66,10 @@ class ProductController extends AbstractController
     #[Route('/products/{id}', name: 'product_show')]
     public function show(int $id, ProductRepository $productRepository): Response
     {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
+
         $product = $productRepository->find($id);
 
         if (!$product) {
