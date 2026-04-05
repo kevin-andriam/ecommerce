@@ -30,7 +30,7 @@ Ce projet est donc à la fois :
 | Aujourd'hui | Demain |
 |---|---|
 | Produits de test | Vrais vêtements de la marque |
-| Paiement simulé | Intégration MVola / Stripe |
+| Paiement simulé | Intégration Stripe |
 | Hébergement local | Déploiement en production |
 | Design basique | Identité visuelle de la marque |
 | Données de test | Vrais clients |
