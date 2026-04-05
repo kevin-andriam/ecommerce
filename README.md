@@ -12,16 +12,16 @@ Développé avec Symfony 6.4, Doctrine ORM, Tailwind CSS et EasyAdmin 5.
 
 ## 🎯 Objectif du projet
 
-Ce projet est développé dans le cadre d'un **portfolio personnel**, mais il représente bien plus qu'un simple exercice technique.
+Ce projet est développé dans le cadre d'un portfolio personnel, mais il représente bien plus qu'un simple exercice technique.
 
 L'ambition derrière UTRAKT Shop est de poser les bases d'une vraie boutique en ligne pour une future marque de vêtements. L'idée est simple : créer un jour une marque vestimentaire propre, avec une identité forte, et vendre directement aux clients via cette plateforme.
 
 Ce projet est donc à la fois :
 
-- Un apprentissage** — maîtriser le développement d'un e-commerce complet avec Symfony
-- Un projet de portfolio** — démontrer des compétences en développement web full-stack
-- Une fondation** — les bases techniques d'une future boutique de vêtements en ligne
-- Une vision** — construire une marque personnelle et indépendante
+- Un apprentissage — maîtriser le développement d'un e-commerce complet avec Symfony
+- Un projet de portfolio — démontrer des compétences en développement web full-stack
+- Une fondation — les bases techniques d'une future boutique de vêtements en ligne
+- Une vision — construire une marque personnelle et indépendante
 
 > *"Chaque grande marque a commencé par une idée et un premier pas. Ce projet est ce premier pas."*
 
