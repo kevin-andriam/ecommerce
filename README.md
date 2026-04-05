@@ -2,7 +2,7 @@
 
 ## Description
 
-**UTRAKT Shop est une boutique en ligne B2C (Business to Consumer), c'est-à-dire une plateforme de vente de vêtements directe entre une entreprise et ses clients finaux.
+UTRAKT Shop est une boutique en ligne B2C (Business to Consumer), c'est-à-dire une plateforme de vente de vêtements directe entre une entreprise et ses clients finaux.
 
 Le site permet aux clients de parcourir un catalogue de produits, d'ajouter des articles à leur panier et de passer des commandes en ligne. De l'autre côté, les administrateurs peuvent gérer l'ensemble de la boutique (produits, catégories, commandes, utilisateurs) depuis un tableau de bord dédié.
 
